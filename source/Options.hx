@@ -417,6 +417,44 @@ class AccuracyDOption extends Option
 	}
 }
 
+class VisualOffset extends Option //This needs to adjust actual beats as well. Find a non-intrusive way to do this.
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+		acceptValues = true;
+	}
+
+	public override function press():Bool
+	{
+		return false;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Visual Offset";
+	}
+	
+	override function right():Bool {
+		FlxG.save.data.offset = FlxG.save.data.offset + 1;
+
+		OptionsMenu.versionShit.text = "Current Offset: " + FlxG.save.data.offset + " - Description - " + description;
+
+		return true;
+	}
+
+	override function left():Bool {
+		if (FlxG.save.data.offset < 0)
+			return false;
+		FlxG.save.data.offset = FlxG.save.data.offset - 1;
+
+		OptionsMenu.versionShit.text = "Current Offset: " + FlxG.save.data.offset + " - Description - " + description;
+
+		return true;
+	}
+}
+
 class CustomizeGameplay extends Option
 {
 	public function new(desc:String)

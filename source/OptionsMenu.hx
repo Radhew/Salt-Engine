@@ -38,7 +38,8 @@ class OptionsMenu extends MusicBeatState
 			new RainbowFPSOption("Make the FPS Counter Rainbow (Only works with the FPS Counter toggeled on)"),
 			#end
 			new AccuracyOption("Display accuracy information."),
-			new NPSDisplayOption("Shows your current Notes Per Second.")
+			new NPSDisplayOption("Shows your current Notes Per Second."),
+			new VisualOffset("Adjust the offset between the song's visuals and audio. (LEFT or RIGHT)")
 		]),
 		
 		new OptionCatagory("Misc", [
@@ -83,7 +84,7 @@ class OptionsMenu extends MusicBeatState
 
 		currentDescription = "none";
 
-		versionShit = new FlxText(5, FlxG.height - 18, 0, "Offset (Left, Right): " + FlxG.save.data.offset + " - Description - " + currentDescription, 12);
+		versionShit = new FlxText(5, FlxG.height - 18, 0, "Input Offset (Left, Right): " + FlxG.save.data.inputOff + " - Description - " + currentDescription, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
@@ -150,16 +151,16 @@ class OptionsMenu extends MusicBeatState
 					if (FlxG.keys.pressed.SHIFT)
 					{
 						if (FlxG.keys.justPressed.RIGHT)
-							FlxG.save.data.offset += 0.1;
+							FlxG.save.data.inputOff += 0.1;
 						else if (FlxG.keys.justPressed.LEFT)
-							FlxG.save.data.offset -= 0.1;
+							FlxG.save.data.inputOff -= 0.1;
 					}
 					else if (FlxG.keys.pressed.RIGHT)
-						FlxG.save.data.offset += 0.1;
+						FlxG.save.data.inputOff += 0.1;
 					else if (FlxG.keys.pressed.LEFT)
-						FlxG.save.data.offset -= 0.1;
+						FlxG.save.data.inputOff -= 0.1;
 					
-					versionShit.text = "Offset (Left, Right, Shift for slow): " + truncateFloat(FlxG.save.data.offset,2) + " - Description - " + currentDescription;
+					versionShit.text = "Input Offset (Left, Right, Shift for slow): " + truncateFloat(FlxG.save.data.inputOff,2) + " - Description - " + currentDescription;
 				}
 			}
 			else
@@ -167,21 +168,21 @@ class OptionsMenu extends MusicBeatState
 				if (FlxG.keys.pressed.SHIFT)
 					{
 						if (FlxG.keys.justPressed.RIGHT)
-							FlxG.save.data.offset += 0.1;
+							FlxG.save.data.inputOff += 0.1;
 						else if (FlxG.keys.justPressed.LEFT)
-							FlxG.save.data.offset -= 0.1;
+							FlxG.save.data.inputOff -= 0.1;
 					}
 					else if (FlxG.keys.pressed.RIGHT)
-						FlxG.save.data.offset += 0.1;
+						FlxG.save.data.inputOff += 0.1;
 					else if (FlxG.keys.pressed.LEFT)
-						FlxG.save.data.offset -= 0.1;
+						FlxG.save.data.inputOff -= 0.1;
 				
-				versionShit.text = "Offset (Left, Right, Shift for slow): " + truncateFloat(FlxG.save.data.offset,2) + " - Description - " + currentDescription;
+				versionShit.text = "Input Offset (Left, Right, Shift for slow): " + truncateFloat(FlxG.save.data.inputOff,2) + " - Description - " + currentDescription;
 			}
 		
 
 			if (controls.RESET)
-					FlxG.save.data.offset = 0;
+					FlxG.save.data.inputOff = 0;
 
 			if (controls.ACCEPT)
 			{
@@ -234,7 +235,7 @@ class OptionsMenu extends MusicBeatState
 			currentDescription = currentSelectedCat.getOptions()[curSelected].getDescription();
 		else
 			currentDescription = "Please select a catagory";
-		versionShit.text = "Offset (Left, Right, Shift for slow): " + truncateFloat(FlxG.save.data.offset,2) + " - Description - " + currentDescription;
+		versionShit.text = "Input Offset (Left, Right, Shift for slow): " + truncateFloat(FlxG.save.data.inputOff,2) + " - Description - " + currentDescription;
 
 		// selector.y = (70 * curSelected) + 30;
 
