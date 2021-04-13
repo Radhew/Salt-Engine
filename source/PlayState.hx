@@ -1032,7 +1032,7 @@ class PlayState extends MusicBeatState
 
 		talking = false;
 		startedCountdown = true;
-		Conductor.songPosition = 0;
+		Conductor.songPosition = FlxG.save.data.avOffset * -1;
 		Conductor.songPosition -= Conductor.crochet * 5;
 
 		var swagCounter:Int = 0;
@@ -1235,7 +1235,7 @@ class PlayState extends MusicBeatState
 
 			for (songNotes in section.sectionNotes)
 			{
-				var daStrumTime:Float = songNotes[0] + FlxG.save.data.offset;
+				var daStrumTime:Float = songNotes[0];
 				if (daStrumTime < 0)
 					daStrumTime = 0;
 				var daNoteData:Int = Std.int(songNotes[1] % 4);
@@ -1478,8 +1478,8 @@ class PlayState extends MusicBeatState
 		vocals.pause();
 
 		FlxG.sound.music.play();
-		Conductor.songPosition = FlxG.sound.music.time;
-		vocals.time = Conductor.songPosition;
+		Conductor.songPosition = FlxG.sound.music.time - FlxG.save.data.avOffset;
+		vocals.time = Conductor.songPosition + FlxG.save.data.avOffset;
 		vocals.play();
 
 		#if windows
@@ -1714,7 +1714,7 @@ class PlayState extends MusicBeatState
 			if (startedCountdown)
 			{
 				Conductor.songPosition += FlxG.elapsed * 1000;
-				if (Conductor.songPosition >= 0)
+				if (Conductor.songPosition >= FlxG.save.data.avOffset * -1)
 					startSong();
 			}
 		}
@@ -2111,7 +2111,7 @@ class PlayState extends MusicBeatState
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			offsetTesting = false;
 			LoadingState.loadAndSwitchState(new OptionsMenu());
-			FlxG.save.data.offset = offsetTest;
+			FlxG.save.data.inputOff = offsetTest;
 		}
 		else
 		{
@@ -3143,7 +3143,7 @@ class PlayState extends MusicBeatState
 	override function stepHit()
 	{
 		super.stepHit();
-		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
+		if (FlxG.sound.music.time - FlxG.save.data.avOffset > Conductor.songPosition + 20 && !startingSong  || FlxG.sound.music.time - FlxG.save.data.avOffset < Conductor.songPosition - 20)
 		{
 			resyncVocals();
 		}

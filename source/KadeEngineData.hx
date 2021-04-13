@@ -22,6 +22,12 @@ class KadeEngineData
 
 		if (FlxG.save.data.offset == null)
 			FlxG.save.data.offset = 0;
+			
+		if (FlxG.save.data.inputOff == null)
+			FlxG.save.data.inputOff = 0;
+			
+		if (FlxG.save.data.avOffset == null)
+			FlxG.save.data.avOffset = 0;
 
 		if (FlxG.save.data.songPosition == null)
 			FlxG.save.data.songPosition = false;

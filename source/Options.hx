@@ -417,7 +417,7 @@ class AccuracyDOption extends Option
 	}
 }
 
-class VisualOffset extends Option //This needs to adjust actual beats as well. Find a non-intrusive way to do this.
+class AudioOffset extends Option
 {
 	public function new(desc:String)
 	{
@@ -433,23 +433,21 @@ class VisualOffset extends Option //This needs to adjust actual beats as well. F
 
 	private override function updateDisplay():String
 	{
-		return "Visual Offset";
+		return "Audio Offset";
 	}
 	
 	override function right():Bool {
-		FlxG.save.data.offset = FlxG.save.data.offset + 1;
+		FlxG.save.data.avOffset = FlxG.save.data.avOffset + 1;
 
-		OptionsMenu.versionShit.text = "Current Offset: " + FlxG.save.data.offset + " - Description - " + description;
+		OptionsMenu.versionShit.text = "Current Offset: " + FlxG.save.data.avOffset + " - Description - " + description;
 
 		return true;
 	}
 
 	override function left():Bool {
-		if (FlxG.save.data.offset < 0)
-			return false;
-		FlxG.save.data.offset = FlxG.save.data.offset - 1;
+		FlxG.save.data.avOffset = FlxG.save.data.avOffset - 1;
 
-		OptionsMenu.versionShit.text = "Current Offset: " + FlxG.save.data.offset + " - Description - " + description;
+		OptionsMenu.versionShit.text = "Current Offset: " + FlxG.save.data.avOffset + " - Description - " + description;
 
 		return true;
 	}
