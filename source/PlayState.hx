@@ -98,6 +98,7 @@ class PlayState extends MusicBeatState
 
 	private var strumLineNotes:FlxTypedGroup<FlxSprite>;
 	private var playerStrums:FlxTypedGroup<FlxSprite>;
+	private var dadStrums:FlxTypedGroup<FlxSprite>;
 
 	private var camZooming:Bool = false;
 	private var curSong:String = "";
@@ -753,6 +754,7 @@ class PlayState extends MusicBeatState
 		add(strumLineNotes);
 
 		playerStrums = new FlxTypedGroup<FlxSprite>();
+		dadStrums = new FlxTypedGroup<FlxSprite>();
 
 		// startCountdown();
 
@@ -1244,6 +1246,9 @@ class PlayState extends MusicBeatState
 				{
 					gottaHitNote = !section.mustHitSection;
 				}
+				
+				if (section.mustHitSection && songNotes[1] < 4 || !section.mustHitSection && songNotes[1] > 3)
+					daStrumTime += FlxG.save.data.inputOff;
 
 				var oldNote:Note;
 				if (unspawnNotes.length > 0)
@@ -1393,14 +1398,22 @@ class PlayState extends MusicBeatState
 
 			babyArrow.ID = i;
 
-			if (player == 1)
+			switch (player)
 			{
-				playerStrums.add(babyArrow);
+				case 0:
+					dadStrums.add(babyArrow);
+				case 1:
+					playerStrums.add(babyArrow);
 			}
 
 			babyArrow.animation.play('static');
 			babyArrow.x += 50;
 			babyArrow.x += ((FlxG.width / 2) * player);
+			
+			dadStrums.forEach(function(spr:FlxSprite)
+				{					
+					spr.centerOffsets(); //CPU arrows start out slightly off-center
+				});
 
 			strumLineNotes.add(babyArrow);
 		}
@@ -1999,6 +2012,21 @@ class PlayState extends MusicBeatState
 							case 0:
 								dad.playAnim('singLEFT' + altAnim, true);
 						}
+						dadStrums.forEach(function(spr:FlxSprite)
+							{
+								if (Math.abs(daNote.noteData) == spr.ID)
+								{
+									spr.animation.play('confirm', true);
+								}
+								if (spr.animation.curAnim.name == 'confirm' && !curStage.startsWith('school'))
+								{
+									spr.centerOffsets();
+									spr.offset.x -= 13;
+									spr.offset.y -= 13;
+								}
+								else
+									spr.centerOffsets();
+							});
 	
 						dad.holdTimer = 0;
 	
@@ -2044,6 +2072,14 @@ class PlayState extends MusicBeatState
 				});
 			}
 
+		dadStrums.forEach(function(spr:FlxSprite)
+					{
+						if (spr.animation.finished)
+						{
+							spr.animation.play('static');
+							spr.centerOffsets();
+						}
+					});
 
 		if (!inCutscene)
 			keyShit();
