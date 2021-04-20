@@ -28,7 +28,7 @@ import openfl.Assets;
 import Discord.DiscordClient;
 #end
 
-#if desktop
+#if cpp
 import sys.thread.Thread;
 #end
 
@@ -59,6 +59,10 @@ class TitleState extends MusicBeatState
 			sys.FileSystem.createDirectory(Sys.getCwd() + "/assets/replays");
 		#end
 
+		@:privateAccess
+		{
+			trace("Loaded " + openfl.Assets.getLibrary("default").assetsLoaded + " assets (DEFAULT)");
+		}
 		
 		PlayerSettings.init();
 
