@@ -29,7 +29,6 @@ class OptionsMenu extends MusicBeatState
 			new ScrollSpeedOption("Change your scroll speed (Left for -0.1, right for +0.1. If its at 1, it will be chart dependent)"),
 			new AccuracyDOption("Change how accuracy is calculated. (Accurate = Simple, Complex = Milisecond Based)"),
 			// new OffsetMenu("Get a note offset based off of your inputs!"),
-			new AudioOffset("Adjust the offset between the song's visuals and audio. (LEFT or RIGHT)"),
 			new CustomizeGameplay("Drag'n'Drop Gameplay Modules around to your preference")
 		]),
 		new OptionCatagory("Appearence", [
@@ -40,6 +39,8 @@ class OptionsMenu extends MusicBeatState
 			#end
 			new AccuracyOption("Display accuracy information."),
 			new NPSDisplayOption("Shows your current Notes Per Second."),
+			new AudioOffset("Adjust the offset between the song's visuals and audio. (LEFT or RIGHT)"),
+			
 		]),
 		
 		new OptionCatagory("Misc", [

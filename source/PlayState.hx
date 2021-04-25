@@ -492,7 +492,7 @@ class PlayState extends MusicBeatState
 		persistentDraw = true;
 
 		if (SONG == null)
-			SONG = Song.loadFromJson('tutorial');
+			SONG = Song.loadFromJson('best-girl');
 
 		Conductor.mapBPMChanges(SONG);
 		Conductor.changeBPM(SONG.bpm);
@@ -501,34 +501,34 @@ class PlayState extends MusicBeatState
 		
 		switch (SONG.song.toLowerCase())
 		{
-			case 'tutorial':
-				dialogue = ["Hey you're pretty cute.", 'Use the arrow keys to keep up \nwith me singing.'];
-			case 'bopeebo':
-				dialogue = [
-					'HEY!',
-					"You think you can just sing\nwith my daughter like that?",
-					"If you want to date her...",
-					"You're going to have to go \nthrough ME first!"
-				];
-			case 'fresh':
-				dialogue = ["Not too shabby boy.", ""];
-			case 'dadbattle':
-				dialogue = [
-					"gah you think you're hot stuff?",
-					"If you can beat me here...",
-					"Only then I will even CONSIDER letting you\ndate my daughter!"
-				];
-			case 'senpai':
-				dialogue = CoolUtil.coolTextFile(Paths.txt('senpai/senpaiDialogue'));
-			case 'roses':
-				dialogue = CoolUtil.coolTextFile(Paths.txt('roses/rosesDialogue'));
-			case 'thorns':
-				dialogue = CoolUtil.coolTextFile(Paths.txt('thorns/thornsDialogue'));
+			//case 'tutorial':
+				//dialogue = ["Hey you're pretty cute.", 'Use the arrow keys to keep up \nwith me singing.'];
+			//case 'bopeebo':
+				//dialogue = [
+					//'HEY!',
+					//"You think you can just sing\nwith my daughter like that?",
+					//"If you want to date her...",
+					//"You're going to have to go \nthrough ME first!"
+				//];
+			//case 'fresh':
+				//dialogue = ["Not too shabby boy.", ""];
+			//case 'dadbattle':
+				//dialogue = [
+					//"gah you think you're hot stuff?",
+					//"If you can beat me here...",
+					//"Only then I will even CONSIDER letting you\ndate my daughter!"
+				//];
+			case 'buckets':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('buckets/bucketsDialogue'));
+			case 'logarithms':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('logarithms/logarithmsDialogue'));
+			case 'terminal':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('terminal/terminalDialogue'));
 		}
 
 		switch(SONG.song.toLowerCase())
 		{
-			case 'spookeez' | 'monster' | 'south': 
+			case 'sweet-n-spooky' | 'opheebop' | 'sour-n-scary': 
 			{
 				curStage = 'spooky';
 				halloweenLevel = true;
@@ -545,7 +545,7 @@ class PlayState extends MusicBeatState
 
 				isHalloween = true;
 			}
-			case 'pico' | 'blammed' | 'philly': 
+			case 'protect' | 'defend' | 'safeguard': 
 					{
 					curStage = 'philly';
 
@@ -587,7 +587,7 @@ class PlayState extends MusicBeatState
 					var street:FlxSprite = new FlxSprite(-40, streetBehind.y).loadGraphic(Paths.image('philly/street'));
 						add(street);
 			}
-			case 'milf' | 'satin-panties' | 'high':
+			case 'indie-star' | 'rising-star' | 'superstar':
 			{
 					curStage = 'limo';
 					defaultCamZoom = 0.90;
@@ -634,7 +634,7 @@ class PlayState extends MusicBeatState
 					fastCar = new FlxSprite(-300, 160).loadGraphic(Paths.image('limo/fastCarLol'));
 					// add(limo);
 			}
-			case 'cocoa' | 'eggnog':
+			case 'order-up' | 'rush-hour':
 			{
 						curStage = 'mall';
 
@@ -690,7 +690,7 @@ class PlayState extends MusicBeatState
 					santa.antialiasing = true;
 					add(santa);
 			}
-			case 'winter-horrorland':
+			case 'freedom':
 			{
 					curStage = 'mallEvil';
 					var bg:FlxSprite = new FlxSprite(-400, -500).loadGraphic(Paths.image('christmas/evilBG'));
@@ -710,7 +710,7 @@ class PlayState extends MusicBeatState
 						evilSnow.antialiasing = true;
 					add(evilSnow);
 					}
-			case 'senpai' | 'roses':
+			case 'buckets' | 'logarithms':
 			{
 					curStage = 'school';
 
@@ -768,7 +768,7 @@ class PlayState extends MusicBeatState
 					bgGirls = new BackgroundGirls(-100, 190);
 					bgGirls.scrollFactor.set(0.9, 0.9);
 
-					if (SONG.song.toLowerCase() == 'roses')
+					if (SONG.song.toLowerCase() == 'logarithms')
 						{
 							bgGirls.getScared();
 					}
@@ -777,7 +777,7 @@ class PlayState extends MusicBeatState
 					bgGirls.updateHitbox();
 					add(bgGirls);
 			}
-			case 'thorns':
+			case 'terminal':
 			{
 					curStage = 'schoolEvil';
 
@@ -1062,7 +1062,7 @@ class PlayState extends MusicBeatState
 		kadeEngineWatermark = new FlxText(4,healthBarBG.y + 50,0,SONG.song + " " + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy") + (Main.watermarks ? " - KE " + MainMenuState.kadeEngineVer : ""), 16);
 		kadeEngineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
 		kadeEngineWatermark.scrollFactor.set();
-		add(kadeEngineWatermark);
+		//add(kadeEngineWatermark);
 
 		if (FlxG.save.data.downscroll)
 			kadeEngineWatermark.y = FlxG.height * 0.9 + 45;
@@ -1120,7 +1120,7 @@ class PlayState extends MusicBeatState
 		{
 			switch (curSong.toLowerCase())
 			{
-				case "winter-horrorland":
+				case "freedom":
 					var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
 					add(blackScreen);
 					blackScreen.scrollFactor.set();
@@ -1148,12 +1148,12 @@ class PlayState extends MusicBeatState
 							});
 						});
 					});
-				case 'senpai':
+				case 'buckets':
 					schoolIntro(doof);
-				case 'roses':
+				case 'logarithms':
 					FlxG.sound.play(Paths.sound('ANGRY'));
 					schoolIntro(doof);
-				case 'thorns':
+				case 'terminal':
 					schoolIntro(doof);
 				default:
 					startCountdown();
@@ -1191,11 +1191,11 @@ class PlayState extends MusicBeatState
 		senpaiEvil.updateHitbox();
 		senpaiEvil.screenCenter();
 
-		if (SONG.song.toLowerCase() == 'roses' || SONG.song.toLowerCase() == 'thorns')
+		if (SONG.song.toLowerCase() == 'logarithms' || SONG.song.toLowerCase() == 'terminal')
 		{
 			remove(black);
 
-			if (SONG.song.toLowerCase() == 'thorns')
+			if (SONG.song.toLowerCase() == 'terminal')
 			{
 				add(red);
 			}
@@ -1215,7 +1215,7 @@ class PlayState extends MusicBeatState
 				{
 					inCutscene = true;
 
-					if (SONG.song.toLowerCase() == 'thorns')
+					if (SONG.song.toLowerCase() == 'terminal')
 					{
 						add(senpaiEvil);
 						senpaiEvil.alpha = 0;
@@ -1728,7 +1728,7 @@ class PlayState extends MusicBeatState
 		// Song check real quick
 		switch(curSong)
 		{
-			case 'Bopeebo' | 'Philly' | 'Blammed' | 'Cocoa' | 'Eggnog': allowedToHeadbang = true;
+			case 'Daddys-Girl' | 'Defend' | 'Safeguard' | 'Order-Up' | 'Rush-Hour': allowedToHeadbang = true;
 			default: allowedToHeadbang = false;
 		}
 		
@@ -2556,7 +2556,7 @@ class PlayState extends MusicBeatState
 				// FlxG.watch.addQuick('Queued',inputsQueued);
 			}
 
-		if (curSong == 'Fresh')
+		if (curSong == 'Salty-Love')
 		{
 			switch (curBeat)
 			{
@@ -2575,12 +2575,12 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (curSong == 'Bopeebo')
+		if (curSong == 'Daddys-Girl')
 		{
 			switch (curBeat)
 			{
 				case 128, 129, 130:
-					vocals.volume = 0;
+					//vocals.volume = 0;
 					// FlxG.sound.music.stop();
 					// FlxG.switchState(new PlayState());
 			}
@@ -2636,7 +2636,7 @@ class PlayState extends MusicBeatState
 	
 					if (!daNote.mustPress && daNote.wasGoodHit)
 					{
-						if (SONG.song != 'Tutorial')
+						if (SONG.song != 'best-girl')
 							camZooming = true;
 
 						var altAnim:String = "";
@@ -2848,7 +2848,7 @@ class PlayState extends MusicBeatState
 					trace('LOADING NEXT SONG');
 					trace(PlayState.storyPlaylist[0].toLowerCase() + difficulty);
 
-					if (SONG.song.toLowerCase() == 'eggnog')
+					if (SONG.song.toLowerCase() == 'rush-hour')
 					{
 						var blackShit:FlxSprite = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
 							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
@@ -3033,7 +3033,7 @@ class PlayState extends MusicBeatState
 			if (currentTimingShown.alpha != 1)
 				currentTimingShown.alpha = 1;
 
-			add(currentTimingShown);
+			//add(currentTimingShown);
 			
 
 
@@ -3918,10 +3918,10 @@ class PlayState extends MusicBeatState
 		wiggleShit.update(Conductor.crochet);
 
 		// HARDCODING FOR MILF ZOOMS!
-		if (curSong.toLowerCase() == 'milf' && curBeat >= 168 && curBeat < 200 && camZooming && FlxG.camera.zoom < 1.35)
+		if (curSong.toLowerCase() == 'superstar' && curBeat >= 168 && curBeat < 200 && camZooming && FlxG.camera.zoom < 1.35)
 		{
-			FlxG.camera.zoom += 0.015;
-			camHUD.zoom += 0.03;
+			//FlxG.camera.zoom += 0.015;
+			//camHUD.zoom += 0.03;
 		}
 
 		if (camZooming && FlxG.camera.zoom < 1.35 && curBeat % 4 == 0)
@@ -3946,12 +3946,12 @@ class PlayState extends MusicBeatState
 			boyfriend.playAnim('idle');
 		}
 
-		if (curBeat % 8 == 7 && curSong == 'Bopeebo')
+		if (curBeat % 8 == 7 && curSong == 'Daddys-Girl')
 		{
 			boyfriend.playAnim('hey', true);
 		}
 
-		if (curBeat % 16 == 15 && SONG.song == 'Tutorial' && dad.curCharacter == 'gf' && curBeat > 16 && curBeat < 48)
+		if (curBeat % 16 == 15 && SONG.song == 'best-girl' && dad.curCharacter == 'gf' && curBeat > 16 && curBeat < 48)
 			{
 				boyfriend.playAnim('hey', true);
 				dad.playAnim('cheer', true);
