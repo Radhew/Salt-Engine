@@ -2605,9 +2605,13 @@ class PlayState extends MusicBeatState
 					}
 					else
 					{
-						daNote.visible = true;
+						if (!daNote.dadWindow)
+							daNote.visible = true;
 						daNote.active = true;
 					}
+					
+					if (daNote.dadWindow && daNote.isSustainNote && daNote.visible)
+						daNote.visible = false;
 	
 					if (!daNote.mustPress && daNote.wasGoodHit)
 					{
@@ -2682,7 +2686,7 @@ class PlayState extends MusicBeatState
 							daNote.angle = playerStrums.members[Math.floor(Math.abs(daNote.noteData))].angle;
 						daNote.alpha = playerStrums.members[Math.floor(Math.abs(daNote.noteData))].alpha;
 					}
-					else if (!daNote.wasGoodHit && !daNote.modifiedByLua)
+					else if (!daNote.wasGoodHit && !daNote.modifiedByLua && !daNote.dadWindow)
 					{
 						daNote.visible = strumLineNotes.members[Math.floor(Math.abs(daNote.noteData))].visible;
 						daNote.x = strumLineNotes.members[Math.floor(Math.abs(daNote.noteData))].x;
