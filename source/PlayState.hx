@@ -3276,11 +3276,13 @@ class PlayState extends MusicBeatState
 							{
 
 								if (controlArray[coolNote.noteData])
-								{
+								{								
+									goodNoteHit(coolNote);
 				
 									// ANTI MASH CODE FOR THE BOYS
+									// Ok this code is causing MAJOR problems right now and goes off way too often, disabling this until it's fixed
 				
-									if (mashing > getKeyPresses(coolNote) && mashViolations < 2)
+									/*if (mashing > getKeyPresses(coolNote) && mashViolations < 2)
 										{
 											mashViolations++;
 											
@@ -3298,7 +3300,7 @@ class PlayState extends MusicBeatState
 										}
 					
 										if (mashing != 0)
-											mashing = 0;
+											mashing = 0;*/
 								}
 								else
 								{
@@ -3922,14 +3924,8 @@ class PlayState extends MusicBeatState
 
 			// Dad doesnt interupt his own notes
 			
-			// Commented out until a reason to bring this back arises in the future
-			/* if (SONG.notes[Math.floor(curStep / 16)].mustHitSection)
-				dad.dance(); */
-			
-			if(dad.animation.curAnim.name.startsWith('sing'))
-				if(dad.animation.finished)
-					dad.dance();
-			else
+			// This is pretty different in the main branch but we actually want the old implementation for Salty
+			if (SONG.notes[Math.floor(curStep / 16)].mustHitSection)
 				dad.dance();
 		}
 		// FlxG.log.add('change bpm' + SONG.notes[Std.int(curStep / 16)].changeBPM);
