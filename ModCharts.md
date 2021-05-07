@@ -70,7 +70,7 @@ function update (elapsed)
 	else
         for i=0,7 do
             setActorX(_G['defaultStrum'..i..'X'],i)
-            setActorX(_G['defaultStrum'..i..'Y'],i)
+            setActorY(_G['defaultStrum'..i..'Y'],i)
         end
     end
 end
@@ -95,6 +95,19 @@ Looping through all of the rendered notes
 	end
 ```
 
+Centering BF's Side
+
+```lua
+    function setDefault(id)
+        _G['defaultStrum'..id..'X'] = getActorX(id)
+    end
+
+    -- put this somewhere in a function
+
+    for i = 4, 7 do -- go to the center
+        tweenPosXAngle(i, _G['defaultStrum'..i..'X'] - 275,getActorAngle(i) + 360, 0.6, 'setDefault')
+    end
+```
 
 
 ### Available Hooks

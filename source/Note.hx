@@ -9,6 +9,7 @@ import flixel.util.FlxColor;
 #if polymod
 import polymod.format.ParseRules.TargetSignatureElement;
 #end
+import PlayState;
 
 using StringTools;
 
@@ -58,10 +59,10 @@ class Note extends FlxSprite
 
 		var daStage:String = PlayState.curStage;
 
-		switch (daStage)
+		switch (PlayState.SONG.noteStyle)
 		{
-			case 'school' | 'schoolEvil':
-				loadGraphic(Paths.image('weeb/pixelUI/arrows-pixels'), true, 17, 17);
+			case 'pixel':
+				loadGraphic(Paths.image('weeb/pixelUI/arrows-pixels','week6'), true, 17, 17);
 
 				animation.add('greenScroll', [6]);
 				animation.add('redScroll', [7]);
@@ -70,7 +71,7 @@ class Note extends FlxSprite
 
 				if (isSustainNote)
 				{
-					loadGraphic(Paths.image('weeb/pixelUI/arrowEnds'), true, 7, 6);
+					loadGraphic(Paths.image('weeb/pixelUI/arrowEnds','week6'), true, 7, 6);
 
 					animation.add('purpleholdend', [4]);
 					animation.add('greenholdend', [6]);
@@ -85,7 +86,6 @@ class Note extends FlxSprite
 
 				setGraphicSize(Std.int(width * PlayState.daPixelZoom));
 				updateHitbox();
-
 			default:
 				frames = Paths.getSparrowAtlas('NOTE_assets');
 
