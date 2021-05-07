@@ -1,6 +1,6 @@
 package;
 
-#if cpp
+#if windows
 import llua.Lua;
 #end
 import Controls.Control;
@@ -182,11 +182,11 @@ class PauseSubState extends MusicBeatSubstate
 					FlxG.resetState();
 				case "Exit to menu":
 					PlayState.loadRep = false;
-					#if cpp
-					if (PlayState.lua != null)
+					#if windows
+					if (PlayState.luaModchart != null)
 					{
-						Lua.close(PlayState.lua);
-						PlayState.lua = null;
+						PlayState.luaModchart.die();
+						PlayState.luaModchart = null;
 					}
 					#end
 					FlxG.switchState(new MainMenuState());

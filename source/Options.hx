@@ -69,6 +69,8 @@ class Option
 	public function right():Bool { return throw "stub!"; }
 }
 
+
+
 class DFJKOption extends Option
 {
 	private var controls:Controls;
@@ -119,6 +121,27 @@ class DownscrollOption extends Option
 	}
 }
 
+class GhostTapOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.ghost = !FlxG.save.data.ghost;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return FlxG.save.data.ghost ? "Ghost Tapping" : "No Ghost Tapping";
+	}
+}
+
 class AccuracyOption extends Option
 {
 	public function new(desc:String)
@@ -156,6 +179,46 @@ class SongPositionOption extends Option
 	private override function updateDisplay():String
 	{
 		return "Song Position " + (!FlxG.save.data.songPosition ? "off" : "on");
+	}
+}
+
+class DistractionsAndEffectsOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		FlxG.save.data.distractions = !FlxG.save.data.distractions;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Distractions " + (!FlxG.save.data.distractions ? "off" : "on");
+	}
+}
+
+class FlashingLightsOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		FlxG.save.data.flashing = !FlxG.save.data.flashing;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Flashing Lights " + (!FlxG.save.data.flashing ? "off" : "on");
 	}
 }
 
@@ -240,6 +303,8 @@ class FPSOption extends Option
 		return "FPS Counter " + (!FlxG.save.data.fps ? "off" : "on");
 	}
 }
+
+
 
 class FPSCapOption extends Option
 {
@@ -562,6 +627,22 @@ class OffsetMenu extends Option
 		return "Time your offset";
 	}
 }
-
-
-
+class BotPlay extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	
+	public override function press():Bool
+	{
+		FlxG.save.data.botplay = !FlxG.save.data.botplay;
+		trace('BotPlay : ' + FlxG.save.data.botplay);
+		display = updateDisplay();
+		return true;
+	}
+	
+	private override function updateDisplay():String
+		return "BotPlay " + (FlxG.save.data.botplay ? "on" : "off");
+}

@@ -69,6 +69,18 @@ class KadeEngineData
 		if (FlxG.save.data.watermark == null)
 			FlxG.save.data.watermark = false;
 			
+		if (FlxG.save.data.ghost == null)
+			FlxG.save.data.ghost = true;
+
+		if (FlxG.save.data.distractions == null)
+			FlxG.save.data.distractions = true;
+
+		if (FlxG.save.data.flashing == null)
+			FlxG.save.data.flashing = true;
+		
+		if (FlxG.save.data.botplay == null)
+			FlxG.save.data.botplay = false;
+			
 		if (FlxG.save.data.dynCues == null)
 			FlxG.save.data.dynCues = true;
 			
