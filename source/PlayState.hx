@@ -3444,12 +3444,10 @@ class PlayState extends MusicBeatState
 
 								if (controlArray[coolNote.noteData])
 								{								
-									goodNoteHit(coolNote);
 				
 									// ANTI MASH CODE FOR THE BOYS
-									// Ok this code is causing MAJOR problems right now and goes off way too often, disabling this until it's fixed
 				
-									/*if (mashing > getKeyPresses(coolNote) && mashViolations < 2)
+									if (mashing > getKeyPresses(coolNote) && mashViolations < 2)
 										{
 											mashViolations++;
 											
@@ -3467,7 +3465,7 @@ class PlayState extends MusicBeatState
 										}
 					
 										if (mashing != 0)
-											mashing = 0;*/
+											mashing = 0;
 								}
 								else
 								{
