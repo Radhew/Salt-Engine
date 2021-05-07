@@ -28,6 +28,9 @@ class KadeEngineData
 			
 		if (FlxG.save.data.avOffset == null)
 			FlxG.save.data.avOffset = 0;
+			
+		if (FlxG.save.data.avBackup == null)
+			FlxG.save.data.avBackup == 0;
 
 		if (FlxG.save.data.songPosition == null)
 			FlxG.save.data.songPosition = false;
@@ -65,6 +68,16 @@ class KadeEngineData
 
 		if (FlxG.save.data.watermark == null)
 			FlxG.save.data.watermark = false;
+			
+		if (FlxG.save.data.dynCues == null)
+			FlxG.save.data.dynCues = true;
+			
+		if (FlxG.save.data.dynCues && FlxG.save.data.avOffset != 0)
+		{
+			FlxG.save.data.avBackup = FlxG.save.data.avOffset;
+			FlxG.save.data.avOffset = 0;
+			trace('Setting conflict! Disabling Audio Offset...');
+		}
 
 		Conductor.recalculateTimings();
 

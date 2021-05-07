@@ -190,7 +190,7 @@ class DialogueBox extends FlxSpriteGroup
 					isEnding = true;
 
 					if (PlayState.SONG.song.toLowerCase() == 'buckets' || PlayState.SONG.song.toLowerCase() == 'terminal')
-						FlxG.sound.music.fadeOut(2.2, 0);
+						FlxG.sound.music.fadeOut(1.0, 0);
 
 					new FlxTimer().start(0.2, function(tmr:FlxTimer)
 					{

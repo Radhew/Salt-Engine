@@ -437,17 +437,27 @@ class AudioOffset extends Option
 	}
 	
 	override function right():Bool {
-		FlxG.save.data.avOffset = FlxG.save.data.avOffset + 1;
+		if (!FlxG.save.data.dynCues)
+		{
+			FlxG.save.data.avOffset = FlxG.save.data.avOffset + 1;
 
-		OptionsMenu.versionShit.text = "Current Offset: " + FlxG.save.data.avOffset + " - Description - " + description;
+			OptionsMenu.versionShit.text = "Current Offset: " + FlxG.save.data.avOffset + " - Description - " + description;
+		}
+		else
+			OptionsMenu.versionShit.text = "This feature is disabled while Dynamic Cues are set to ON.";
 
 		return true;
 	}
 
 	override function left():Bool {
-		FlxG.save.data.avOffset = FlxG.save.data.avOffset - 1;
+		if (!FlxG.save.data.dynCues)
+		{
+			FlxG.save.data.avOffset = FlxG.save.data.avOffset - 1;
 
-		OptionsMenu.versionShit.text = "Current Offset: " + FlxG.save.data.avOffset + " - Description - " + description;
+			OptionsMenu.versionShit.text = "Current Offset: " + FlxG.save.data.avOffset + " - Description - " + description;
+		}
+		else
+			OptionsMenu.versionShit.text = "This feature is disabled while Dynamic Cues are set to ON.";
 
 		return true;
 	}
@@ -471,6 +481,34 @@ class CustomizeGameplay extends Option
 	private override function updateDisplay():String
 	{
 		return "Customize Gameplay";
+	}
+}
+
+class CueOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		FlxG.save.data.dynCues = !FlxG.save.data.dynCues;
+		if (FlxG.save.data.dynCues)
+		{
+			FlxG.save.data.avBackup = FlxG.save.data.avOffset;
+			FlxG.save.data.avOffset = 0;
+		}
+		else
+			FlxG.save.data.avOffset = FlxG.save.data.avBackup;
+			
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Dynamic Cues " + (!FlxG.save.data.dynCues ? "off" : "on");
 	}
 }
 

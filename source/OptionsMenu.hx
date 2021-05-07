@@ -47,7 +47,7 @@ class OptionsMenu extends MusicBeatState
 			new FPSOption("Toggle the FPS Counter"),
 			new ReplayOption("View replays"),
 			#end
-			new WatermarkOption("Turn off all watermarks from the engine.")
+			new CueOption("Allows song-based cues (warnings, mid-song countdowns, etc.) to play.")
 			
 		])
 		
