@@ -217,7 +217,9 @@ class PlayState extends MusicBeatState
 	{
 		instance = this;
 		
-
+		if (FlxG.save.data.fpsCap > 290)
+			(cast (Lib.current.getChildAt(0), Main)).setFPSCap(800);
+		
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 
@@ -1660,6 +1662,8 @@ class PlayState extends MusicBeatState
 	private var paused:Bool = false;
 	var startedCountdown:Bool = false;
 	var canPause:Bool = true;
+	var nps:Int = 0;
+	var maxNPS:Int = 0;
 
 	public static var songRate = 1.5;
 
@@ -1668,6 +1672,9 @@ class PlayState extends MusicBeatState
 		#if !debug
 		perfectMode = false;
 		#end
+
+		if (FlxG.save.data.botplay && FlxG.keys.justPressed.ONE)
+			camHUD.visible = !camHUD.visible;
 
 		#if windows
 		if (executeModchart && luaModchart != null && songStarted)
@@ -1725,20 +1732,24 @@ class PlayState extends MusicBeatState
 
 		#end
 
-		if (currentFrames == FlxG.save.data.fpsCap)
+		// reverse iterate to remove oldest notes first and not invalidate the iteration
+		// stop iteration as soon as a note is not removed
+		// all notes should be kept in the correct order and this is optimal, safe to do every frame/update
 		{
-			for(i in 0...notesHitArray.length)
+			var balls = notesHitArray.length-1;
+			while (balls >= 0)
 			{
-				var cock:Date = notesHitArray[i];
-				if (cock != null)
-					if (cock.getTime() + 2000 < Date.now().getTime())
-						notesHitArray.remove(cock);
+				var cock:Date = notesHitArray[balls];
+				if (cock != null && cock.getTime() + 1000 < Date.now().getTime())
+					notesHitArray.remove(cock);
+				else
+					balls = 0;
+				balls--;
 			}
-			nps = Math.floor(notesHitArray.length / 2);
-			currentFrames = 0;
+			nps = notesHitArray.length;
+			if (nps > maxNPS)
+				maxNPS = nps;
 		}
-		else
-			currentFrames++;
 
 		if (FlxG.keys.justPressed.NINE)
 		{
@@ -1766,7 +1777,7 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
-		scoreTxt.text = Ratings.CalculateRanking(songScore,songScoreDef,nps,accuracy);
+		scoreTxt.text = Ratings.CalculateRanking(songScore,songScoreDef,nps,maxNPS,accuracy);
 		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
 		{
 			persistentUpdate = false;
@@ -2348,6 +2359,9 @@ class PlayState extends MusicBeatState
 	{
 		if (!loadRep)
 			rep.SaveReplay();
+
+		if (FlxG.save.data.fpsCap > 290)
+			(cast (Lib.current.getChildAt(0), Main)).setFPSCap(290);
 
 		#if windows
 		if (luaModchart != null)
@@ -3062,8 +3076,6 @@ class PlayState extends MusicBeatState
 				}
 		}
 
-		var nps:Int = 0;
-
 		function goodNoteHit(note:Note, resetMashViolation = true):Void
 			{
 
@@ -3074,8 +3086,10 @@ class PlayState extends MusicBeatState
 
 				note.rating = Ratings.CalculateRating(noteDiff);
 
+				// add newest note to front of notesHitArray
+				// the oldest notes are at the end and are removed first
 				if (!note.isSustainNote)
-					notesHitArray.push(Date.now());
+					notesHitArray.unshift(Date.now());
 
 				if (!resetMashViolation && mashViolations >= 1)
 					mashViolations--;
@@ -3302,12 +3316,13 @@ class PlayState extends MusicBeatState
 			// Commented out until a reason to bring this back arises in the future
 			/* if (SONG.notes[Math.floor(curStep / 16)].mustHitSection)
 				dad.dance(); */
-			
+			/* no because this is kinda dumb
 			if(dad.animation.curAnim.name.startsWith('sing'))
 				if(dad.animation.finished)
 					dad.dance();
 			else
 				dad.dance();
+			*/
 		}
 		// FlxG.log.add('change bpm' + SONG.notes[Std.int(curStep / 16)].changeBPM);
 		wiggleShit.update(Conductor.crochet);
@@ -3339,6 +3354,11 @@ class PlayState extends MusicBeatState
 		if (!boyfriend.animation.curAnim.name.startsWith("sing"))
 		{
 			boyfriend.playAnim('idle');
+		}
+		
+		if (!dad.animation.curAnim.name.startsWith("sing"))
+		{
+			dad.dance();
 		}
 
 		if (curBeat % 8 == 7 && curSong == 'Bopeebo')
