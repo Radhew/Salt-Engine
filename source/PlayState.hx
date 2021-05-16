@@ -3484,18 +3484,28 @@ class PlayState extends MusicBeatState
 			switch (PlayState.SONG.song.toLowerCase())
 			{
 				case 'sour-n-scary' | 'opheebop' | 'safeguard' | 'order-up' | 'rush-hour':
+					if (curBeat == 27)
+						resyncVocals();
 					if (curBeat >= 28 && curBeat < 32)
 						softCountdown();
 				case 'daughter-complex':
+					if (curBeat == 26)
+						resyncVocals();
 					if (curBeat >= 27 && curBeat < 31)
 						softCountdown();
 				case 'protect':
+					if (curBeat == 10)
+						resyncVocals();
 					if (curBeat >= 11 && curBeat < 15)
 						softCountdown();
 				case 'defend' | 'logarithms':
+					if (curBeat == 11)
+						resyncVocals();
 					if (curBeat >= 12 && curBeat < 16)
 						softCountdown();
 				case 'buckets':
+					if (curBeat == 35)
+						resyncVocals();
 					if (curBeat >= 36 && curBeat < 40)
 						softCountdown();
 			}
