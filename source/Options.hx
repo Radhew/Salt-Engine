@@ -1,5 +1,7 @@
 package;
 
+import lime.app.Application;
+import lime.system.DisplayMode;
 import flixel.util.FlxColor;
 import Controls.KeyboardScheme;
 import flixel.FlxG;
@@ -326,23 +328,32 @@ class FPSCapOption extends Option
 	}
 	
 	override function right():Bool {
-		if (FlxG.save.data.fpsCap > 290)
-			return false;
-		FlxG.save.data.fpsCap = FlxG.save.data.fpsCap + 10;
+		if (FlxG.save.data.fpsCap >= 290)
+		{
+			FlxG.save.data.fpsCap = 800; // set it really high lol, I mean. if you hit that cap, it really doesn't do much lol.
+			(cast (Lib.current.getChildAt(0), Main)).setFPSCap(290);
+		}
+		else
+			FlxG.save.data.fpsCap = FlxG.save.data.fpsCap + 10;
 		(cast (Lib.current.getChildAt(0), Main)).setFPSCap(FlxG.save.data.fpsCap);
 
-		OptionsMenu.versionShit.text = "Current FPS Cap: " + FlxG.save.data.fpsCap + " - Description - " + description;
+		OptionsMenu.versionShit.text = "Current FPS Cap: " + (FlxG.save.data.fpsCap > 290 ? "Unlimited (In Gameplay)" : FlxG.save.data.fpsCap) + " - Description - " + description;
 
 		return true;
 	}
 
 	override function left():Bool {
-		if (FlxG.save.data.fpsCap < 60)
-			return false;
-		FlxG.save.data.fpsCap = FlxG.save.data.fpsCap - 10;
+		if (FlxG.save.data.fpsCap > 290)
+			FlxG.save.data.fpsCap = 290;
+		else if (FlxG.save.data.fpsCap < 60)
+			FlxG.save.data.fpsCap = Application.current.window.displayMode.refreshRate;
+		else
+			FlxG.save.data.fpsCap = FlxG.save.data.fpsCap - 10;
 		(cast (Lib.current.getChildAt(0), Main)).setFPSCap(FlxG.save.data.fpsCap);
 
-		OptionsMenu.versionShit.text = "Current FPS Cap: " + FlxG.save.data.fpsCap + " - Description - " + description;
+		OptionsMenu.versionShit.text = "Current FPS Cap: " + FlxG.save.data.fpsCap + 
+		(FlxG.save.data.fpsCap == Application.current.window.displayMode.refreshRate ? "Hz (Refresh Rate)" : "") 
+		+ " - Description - " + description;
 
 		return true;
 	}

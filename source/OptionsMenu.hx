@@ -31,36 +31,29 @@ class OptionsMenu extends MusicBeatState
 			new ScrollSpeedOption("Change your scroll speed (Left for -0.1, right for +0.1. If it's at 1, it will be chart dependent)"),
 			new AccuracyDOption("Change how accuracy is calculated. (Accurate = Simple, Complex = Milisecond Based)"),
 			// new OffsetMenu("Get a note offset based off of your inputs!"),
-			new CustomizeGameplay("Drag'n'Drop Gameplay Modules around to your preference")
+			//new CustomizeGameplay("Drag'n'Drop Gameplay Modules around to your preference")
 		]),
 		new OptionCatagory("Appearance", [
 			#if desktop
 			new DistractionsAndEffectsOption("Toggle stage distractions that can hinder your gameplay."),
 			new RainbowFPSOption("Make the FPS Counter Rainbow (Only works with the FPS Counter toggled on and Flashing Lights toggled off)"),
-			new AudioOffset("Adjust the offset between the song's visuals and audio. (LEFT or RIGHT)")
-			#else
-			new DistractionsAndEffectsOption("Toggle stage distractions that can hinder your gameplay."),
-			new AudioOffset("Adjust the offset between the song's visuals and audio. (LEFT or RIGHT)")
-			#end
-		]),
-
-		new OptionCatagory("Indicators, Notices, and Displays", [
 			new AccuracyOption("Display accuracy information."),
 			new NPSDisplayOption("Shows your current Notes Per Second."),
 			new SongPositionOption("Show the songs current position (as a bar)"),
+			new AudioOffset("Adjust the offset between the song's visuals and audio. (LEFT or RIGHT)")
+			#else
+			new DistractionsAndEffectsOption("Toggle stage distractions that can hinder your gameplay.")
+			new AudioOffset("Adjust the offset between the song's visuals and audio. (LEFT or RIGHT)")
+			#end
 		]),
-
-		new OptionCatagory("Health and Safety", [
-			new FlashingLightsOption("Toggle flashing lights that can cause epileptic seizures and strain.")
-		]),
-		
 		
 		new OptionCatagory("Misc", [
 			#if desktop
 			new FPSOption("Toggle the FPS Counter"),
 			new ReplayOption("View replays"),
 			#end
-			new BotPlay("Showcase your charts and mods with autoplay."),
+			new FlashingLightsOption("Toggle flashing lights that can cause epileptic seizures and strain."),
+			new BotPlay("Plays songs perfectly without user input."),
 			new CueOption("Allows song-based cues (warnings, mid-song countdowns, etc.) to play.")
 		])
 		

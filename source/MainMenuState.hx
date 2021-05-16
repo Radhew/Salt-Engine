@@ -11,6 +11,7 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 import io.newgrounds.NG;
 import lime.app.Application;
 
@@ -103,7 +104,7 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollow, null, 0.60 * (60 / FlxG.save.data.fpsCap));
 
-		var versionShit:FlxText = new FlxText(5, FlxG.height - 18, 0, " Salty Build - " + kadeEngineVer + " Kade Engine", 12);
+		var versionShit:FlxText = new FlxText(5, FlxG.height - 18, 0, " 1.5 Salty Build - " + kadeEngineVer + " Kade Engine", 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
@@ -164,9 +165,8 @@ class MainMenuState extends MusicBeatState
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 					
-					if(FlxG.save.data.flashing){
+					if (FlxG.save.data.flashing)
 						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
-					}
 
 					menuItems.forEach(function(spr:FlxSprite)
 					{
@@ -182,24 +182,20 @@ class MainMenuState extends MusicBeatState
 						}
 						else
 						{
-							FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
+							if (FlxG.save.data.flashing)
 							{
-								var daChoice:String = optionShit[curSelected];
-
-								switch (daChoice)
+								FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
 								{
-									case 'story mode':
-										FlxG.switchState(new StoryMenuState());
-										trace("Story Menu Selected");
-									case 'freeplay':
-										FlxG.switchState(new FreeplayState());
-
-										trace("Freeplay Menu Selected");
-
-									case 'options':
-										FlxG.switchState(new OptionsMenu());
-								}
-							});
+									goToState();
+								});
+							}
+							else
+							{
+								new FlxTimer().start(1, function(tmr:FlxTimer)
+								{
+									goToState();
+								});
+							}
 						}
 					});
 				}
@@ -212,6 +208,25 @@ class MainMenuState extends MusicBeatState
 		{
 			spr.screenCenter(X);
 		});
+	}
+	
+	function goToState()
+	{
+		var daChoice:String = optionShit[curSelected];
+
+		switch (daChoice)
+		{
+			case 'story mode':
+				FlxG.switchState(new StoryMenuState());
+				trace("Story Menu Selected");
+			case 'freeplay':
+				FlxG.switchState(new FreeplayState());
+
+				trace("Freeplay Menu Selected");
+
+			case 'options':
+				FlxG.switchState(new OptionsMenu());
+		}
 	}
 
 	function changeItem(huh:Int = 0)
