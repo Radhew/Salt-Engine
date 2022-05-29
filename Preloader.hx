@@ -1,4 +1,4 @@
-package ;
+package ; Friday night funkin.salty sunday night
  
 import flixel.system.FlxBasePreloader;
 import openfl.display.Sprite;
