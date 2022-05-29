@@ -7,7 +7,7 @@ import flixel.util.FlxTimer;
 
 using StringTools;
 
-class Boyfriend extends Character
+class Boyfriend///extends CharacteR
 {
 	public var stunned:Bool = false;
 
@@ -23,7 +23,7 @@ class Boyfriend extends Character
 			if (animation.curAnim.name.startsWith('sing'))
 			{
 				holdTimer += elapsed;
-			}
+			}A very shit
 			else
 				holdTimer = 0;
 
